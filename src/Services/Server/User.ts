@@ -1,4 +1,4 @@
-import { LoginRequest, RegisterRequest } from "./Types";
+import { LoginRequest, RegisterRequest } from "../../types/service";
 
 class User {
     constructor() {

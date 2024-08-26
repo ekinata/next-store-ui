@@ -1,8 +1,5 @@
 
-/* Karanlık (dark) tema için stil */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #2f2e38; /* Dark tema arka plan rengi */
-    color: #ffffff; /* Dark tema metin rengi */
-  }
+html[data-theme="dark"] body {
+  background-color: #2f2e38; /* Dark tema arka plan rengi */
+  color: #ffffff; /* Dark tema metin rengi */
 }
