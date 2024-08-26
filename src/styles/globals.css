@@ -1,21 +1,7 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
-
 :root{
   color-scheme: light dark;
 }
 
-/* Varsayılan (light) tema için stil */
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: #ffffff; /* Light tema arka plan rengi */
-    color: #000000; /* Light tema metin rengi */
-  }
-}
-
-/* Karanlık (dark) tema için stil */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000000; /* Dark tema arka plan rengi */
-    color: #ffffff; /* Dark tema metin rengi */
-  }
-}
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import './dark.css';
+@import './light.css';
