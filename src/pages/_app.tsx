@@ -1,14 +1,15 @@
 import type { AppProps } from "next/app";
+import $ from 'jquery';
+
 import "../styles/globals.css";
 import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
-    if (localStorage.getItem("theme") === "dark") {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
+    if (typeof window !== 'undefined') {
+      (window as any).$ = $;
+      (window as any).jQuery = $;
     }
   }, []);
 

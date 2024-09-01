@@ -1,42 +1,52 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import dynamic from 'next/dynamic';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import { useEffect } from 'react';
 
-export default function Carousel() {
-  return (
-    <div className='container'>
-        <div className='row my-5'>
-            <div className="col-md-4">
-                <div className="card">
-                    <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    <div className="card-body">
-                        <h5 className="card-title">Card Title</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <a href="#" className="btn btn-outline-warning">Read More <FontAwesomeIcon icon={faArrowRight}/></a>
+const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
+    ssr: false, // Sunucu tarafında render edilmez
+});
+
+
+export default function Carousel({ images: images }: { images: string[] }) {
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                require('owl.carousel');
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    }, []);
+
+    return (
+        <OwlCarousel
+            className="owl-theme"
+            loop
+            margin={10}
+            nav={false}
+            dots={false}
+            autoplay
+            autoplayTimeout={2000}
+            autoplayHoverPause
+            responsive={
+                {
+                    0: { items: 1 },
+                    600: { items: 3 },
+                    1000: { items: 5 }
+                }
+            }
+        >
+            {
+                images.map((image, index) => (
+                    <div key={index} className="item">
+                        <img src={image} alt="carousel" />
                     </div>
-                </div>
-            </div>
-            <div className="col-md-4">
-                <div className="card">
-                    <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    <div className="card-body">
-                        <h5 className="card-title">Card Title</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <a href="#" className="btn btn-outline-warning">Read More <FontAwesomeIcon icon={faArrowRight}/></a>
-                    </div>
-                </div>
-            </div>
-            <div className="col-md-4">
-                <div className="card">
-                    <img src="https://placehold.co/600x400" alt="Placeholder" />
-                    <div className="card-body">
-                        <h5 className="card-title">Card Title</h5>
-                        <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <a href="#" className="btn btn-outline-warning">Read More <FontAwesomeIcon icon={faArrowRight}/></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-  )
+                ))
+            }
+        </OwlCarousel>
+    )
 }
