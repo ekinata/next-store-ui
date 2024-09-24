@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dynamic from 'next/dynamic';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Lightbox from '../lightbox/lightbox';
+import { useDispatch } from 'react-redux';
 
 const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
     ssr: false, // Sunucu tarafında render edilmez
@@ -11,6 +13,13 @@ const OwlCarousel = dynamic(() => import('react-owl-carousel'), {
 
 
 export default function Carousel({ images: images }: { images: string[] }) {
+
+    const dispatch = useDispatch();
+    
+    const handleLightbox = (index:number) => {
+
+        dispatch({ type: 'OPEN_LIGHTBOX', payload: images[index] });
+    }
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -23,6 +32,7 @@ export default function Carousel({ images: images }: { images: string[] }) {
     }, []);
 
     return (
+        <>
         <OwlCarousel
             className="owl-theme"
             loop
@@ -42,11 +52,12 @@ export default function Carousel({ images: images }: { images: string[] }) {
         >
             {
                 images.map((image, index) => (
-                    <div key={index} className="item">
+                    <div key={index} className="item" onClick={()=>handleLightbox(index)}>
                         <img src={image} alt="carousel" />
                     </div>
                 ))
             }
         </OwlCarousel>
+        </>
     )
 }
